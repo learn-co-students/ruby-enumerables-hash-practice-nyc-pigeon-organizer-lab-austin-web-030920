@@ -1,33 +1,25 @@
 def nyc_pigeon_organizer(data)
   pigeons = {}
 
-  data[:color].values.flatten.each do |name|
-    pigeons[name] = {}
-  end
-  
-  pigeons.each do |k, v|
-    pigeons[k][:color] = []
-    data[:color].each do |(key, value)|
-     pigeons[k][:color] << key.to_s if value.include?(k)
+  data.each do |key, value|
+    value.each do |new_value, names|
+      names.each do |name|
+        
+        if !pigeons[name]
+          pigeons[name] = {}
+        end
+
+        if !pigeons[name][key]
+          pigeons[name][key] = []
+        end
+
+        pigeons[name][key] << new_value.to_s
+
+      end
     end
   end
-
-  pigeons.each do |k, v|
-    pigeons[k][:gender] = []
-    data[:gender].each do |(key, value)|
-     pigeons[k][:gender] << key.to_s if value.include?(k)
-    end
-  end
-
-  pigeons.each do |k, v|
-    pigeons[k][:lives] = []
-    data[:lives].each do |(key, value)|
-     pigeons[k][:lives] << key if value.include?(k)
-    end
-  end
-
- pp pigeons
-end
+  p pigeons
+end 
 
 
 pigeon_data = {
